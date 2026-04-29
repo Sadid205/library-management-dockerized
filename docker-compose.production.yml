@@ -23,7 +23,7 @@ services:
   library-frontend:
     image: ghcr.io/sadid205/library-frontend:latest
     ports:
-      - "5173:5173"
+      - "4175:4173"
     env_file:
       - ./.env.production
     depends_on:

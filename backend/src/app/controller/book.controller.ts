@@ -1,13 +1,13 @@
-import { Router, Request, Response, NextFunction } from "express";
-import { bookUpdateZodSchema, bookZodSchema } from "../schemas/book.schema";
+import { NextFunction, Request, Response } from "express";
 import { Book } from "../models/book.models";
+import { bookUpdateZodSchema, bookZodSchema } from "../schemas/book.schema";
 
 import { checkObjectId } from "../utils/checkObjectId";
 
 export const getBooks = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const {
     filter = "",
@@ -41,10 +41,10 @@ export const getBooks = async (
 export const getBookById = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const bookId = req.params.id;
-  checkObjectId(bookId, res);
+  checkObjectId(bookId as string, res);
 
   const book = await Book.findById(bookId);
   if (!book) {
@@ -62,7 +62,7 @@ export const getBookById = async (
 export const createBook = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const parseBody = bookZodSchema.safeParse(req.body);
@@ -89,11 +89,11 @@ export const createBook = async (
 export const updateBook = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const bookId = req.params.id;
-    checkObjectId(bookId, res);
+    checkObjectId(bookId as string, res);
     const parsedBody = bookUpdateZodSchema.safeParse(req.body);
     if (!parsedBody.success) {
       return res.status(400).json({
@@ -105,10 +105,10 @@ export const updateBook = async (
     const updatedBook = await Book.findByIdAndUpdate(
       { _id: bookId },
       { ...parsedBody.data },
-      { new: true }
+      { new: true },
     );
     if (updatedBook?.copies === 0) {
-      await Book.checkAvailablity(bookId);
+      await Book.checkAvailablity(bookId as string);
     }
     return res.status(201).json({
       success: true,
@@ -123,10 +123,10 @@ export const updateBook = async (
 export const deleteBook = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
-    const bookdId = req.params.id;
+    const bookdId = req.params.id as string;
     checkObjectId(bookdId, res);
     const deletedBook = await Book.findByIdAndDelete(bookdId);
     if (deletedBook === null) {

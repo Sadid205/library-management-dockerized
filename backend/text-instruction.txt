@@ -1,0 +1,25 @@
+https://github.com/Apollo-Level2-Web-Dev/B5A3
+
+1. Vercel
+
+- Vercel CLI
+  -Install
+
+  (First time steps)
+  npm install -g vercel
+  vercel -v
+  vercel login
+
+  (For Every project)
+  vercel --prod
+
+-Without Install Process
+(For First Time)
+npx vercel login
+(For every project)
+npx vercel --prod
+
+GitHub Repository Link:https://github.com/Sadid205/Assignment-3-Library-Management
+Live Deployment Link:https://assignment-3-mu-orcin.vercel.app/
+Video Explanation (Public Link):https://www.youtube.com/watch?v=pJTILcfJShg
+Professional README file with features of your application and instructions on setting up the project locally.

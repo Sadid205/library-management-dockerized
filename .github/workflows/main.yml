@@ -82,6 +82,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: "docker-compose.production.yml"
           target: /opt/library-management
+          strip_components: 0
 
       - name: Deploy App
         uses: appleboy/ssh-action@v1.0.3

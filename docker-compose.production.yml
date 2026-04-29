@@ -19,7 +19,6 @@ services:
           memory: 1G
         reservations:
           memory: 400M
-
   library-frontend:
     image: ghcr.io/sadid205/library-frontend:latest
     ports:
@@ -31,7 +30,6 @@ services:
     restart: unless-stopped
     networks:
       - library-network
-
     deploy:
       resources:
         limits:

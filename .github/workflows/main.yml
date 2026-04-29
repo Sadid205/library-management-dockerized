@@ -80,7 +80,7 @@ jobs:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.HOST_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "docker-compose.production.yml"
+          source: "./docker-compose.production.yml"
           target: /opt/library-management
           strip_components: 0
 

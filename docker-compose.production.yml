@@ -1,37 +1,36 @@
+version: "3.9"
+
 services:
   library-backend:
     image: ghcr.io/sadid205/library-backend:latest
-    container_name: library_backend_prod
     ports:
       - "5000:5000"
     env_file:
       - ./.env.production
     depends_on:
-      library-mongodb:
-        condition: service_started
+      - library-mongodb
     restart: unless-stopped
     networks:
-      - app-network
+      - library-network
 
     deploy:
       resources:
         limits:
-          memory: 800M
+          memory: 1G
         reservations:
-          memory: 300M
+          memory: 400M
 
   library-frontend:
     image: ghcr.io/sadid205/library-frontend:latest
-    container_name: library_frontend_prod
     ports:
-      - "4175:4173"
+      - "5173:5173"
     env_file:
       - ./.env.production
     depends_on:
       - library-backend
     restart: unless-stopped
     networks:
-      - app-network
+      - library-network
 
     deploy:
       resources:
@@ -42,7 +41,6 @@ services:
 
   library-mongodb:
     image: mongo:7
-    container_name: library_mongodb_prod
     ports:
       - "27017:27017"
     volumes:
@@ -51,18 +49,18 @@ services:
       - ./.env.production
     restart: unless-stopped
     networks:
-      - app-network
+      - library-network
 
     deploy:
       resources:
         limits:
-          memory: 600M
+          memory: 1G
         reservations:
-          memory: 200M
+          memory: 400M
 
 volumes:
   mongo_data:
 
 networks:
-  app-network:
+  library-network:
     driver: bridge

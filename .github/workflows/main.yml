@@ -71,8 +71,8 @@ jobs:
           username: ${{ secrets.HOST_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "${{ secrets.ENV_PRODUCTION }}" > /opt/library-management/.env
-            chmod 600 /opt/library-management/.env
+            echo "${{ secrets.ENV_PRODUCTION }}" > /opt/library-management/.env.production
+            chmod 600 /opt/library-management/.env.production
 
       - name: Copy docker-compose
         uses: appleboy/scp-action@v0.1.4
@@ -89,13 +89,13 @@ jobs:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.HOST_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          command_timeout: 30m
+          command_timeout: 40m
           script: |
             set -e
 
             cd /opt/library-management
 
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             echo "Pulling latest images..."
             docker compose -f docker-compose.production.yml pull

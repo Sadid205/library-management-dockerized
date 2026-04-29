@@ -1,6 +1,6 @@
 version: "3.9"
 
-services:
+library-services:
   backend:
     build:
       network: host
@@ -15,10 +15,10 @@ services:
     env_file:
       - ./.env.dev
     depends_on:
-      - mongodb
+      - library-mongodb
     restart: unless-stopped
 
-  frontend:
+  library-frontend:
     build:
       network: host
       context: ./frontend
@@ -32,10 +32,10 @@ services:
     env_file:
       - ./.env.dev
     depends_on:
-      - backend
+      - library-backend
     restart: unless-stopped
 
-  mongodb:
+  library-mongodb:
     image: mongo:7
     container_name: library_mongodb
     ports:

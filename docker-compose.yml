@@ -1,7 +1,7 @@
 version: "3.9"
 
-library-services:
-  backend:
+services:
+  library-backend:
     build:
       network: host
       context: ./backend

@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const allowedHosts = env.VITE_ALLOWED_HOSTS
     ? env.VITE_ALLOWED_HOSTS.split(",")
-    : [];
+    : ["library-management.mdabdullahalsadid.com"];
   const port = env.PORT ? parseInt(env.PORT) : 4173;
   return {
     plugins: [react(), tailwindcss()],

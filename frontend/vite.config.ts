@@ -16,10 +16,17 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
+   server: {
+      allowedHosts: allowedHosts,
+      host: "0.0.0.0",
+      port: 4173,
+      strictPort: true, 
+    },
     preview: {
       allowedHosts: allowedHosts,
-      host: true,
-      port: port,
+      host: "0.0.0.0",
+      port: 4173,
+      strictPort: true,
     },
   };
 });

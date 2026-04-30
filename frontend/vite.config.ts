@@ -1,21 +1,25 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 
-const allowedHosts = process.env.VITE_ALLOWED_HOSTS
-  ? process.env.VITE_ALLOWED_HOSTS.split(",")
-  : [];
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+  const allowedHosts = env.VITE_ALLOWED_HOSTS
+    ? env.VITE_ALLOWED_HOSTS.split(",")
+    : [];
+  const port = env.PORT ? parseInt(env.PORT) : 4173;
+  return {
+    plugins: [react(), tailwindcss()],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
     },
-  },
-  preview: {
-    allowedHosts: allowedHosts,
-  },
+    preview: {
+      allowedHosts: allowedHosts,
+      host: true,
+      port: port,
+    },
+  };
 });

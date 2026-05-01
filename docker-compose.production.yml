@@ -22,9 +22,7 @@ services:
   library-frontend:
     image: ghcr.io/sadid205/library-frontend:latest
     ports:
-      - "4175:4173"
-    env_file:
-      - ./.env.production
+      - "80:80"
     depends_on:
       - library-backend
     restart: unless-stopped
@@ -36,7 +34,6 @@ services:
           memory: 1G
         reservations:
           memory: 400M
-
   library-mongodb:
     image: mongo:7
     ports:

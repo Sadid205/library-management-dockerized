@@ -49,7 +49,6 @@ jobs:
           build-args: |
             VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}
             VITE_ALLOWED_HOSTS=${{ secrets.VITE_ALLOWED_HOSTS }}
-            PORT=4173
 
       - name: Setup VPS Directory
         uses: appleboy/ssh-action@v1.0.3

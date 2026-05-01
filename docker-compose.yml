@@ -25,7 +25,7 @@ services:
       dockerfile: Dockerfile.dev
     container_name: library_frontend_dev
     ports:
-      - "5173:5173"
+      - "5173:4173"
     volumes:
       - ./frontend:/app
       - /app/node_modules
